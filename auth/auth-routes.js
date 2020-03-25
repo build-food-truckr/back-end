@@ -1,7 +1,9 @@
-const route = require("express").Router()
+const route = require("express").Router();
+const Users = require('../users/users-model');
+const doesUserAlreadyExist = require("./")
 
 
-route.post('/register', (req, res, next) => {
+route.post('/register', async (req, res, next) => {
     try {
 
     } catch(err){
@@ -9,7 +11,7 @@ route.post('/register', (req, res, next) => {
     }
 });
 
-route.post('/login', (req, res, next) => {
+route.post('/login', doesUserAlreadyExist(), async (req, res, next) => {
     try {
 
     } catch(err){
