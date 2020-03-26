@@ -24,11 +24,38 @@ route.get('/:id', async (req, res, next) => {
     }
 });
 
+
 //delete menu item
 route.delete('/:id', async (req, res, next) => {
-    try {
+    try { 
+        const { id } = req.params
+        const menuExists = await Menu.findBy({ id }).first()
+        if(!menuExists){
+            return res.status(400).json({ message: "itemName doesn't exist" })
+        }
         await Menu.deleteMenuItem(req.params.id)
         res.json({ message: "Menu item deleted"})
+    } catch(err){
+        next(err)
+    }
+});
+
+
+//create menu item
+route.post("/", async (req, res, next) => {
+    try {
+        const { itemName, itemPrice } = req.body
+        if (!itemName || !itemPrice){
+            return res.status(400).json({ message: "Please provide itemName and itemPrice"})
+        }
+
+        const itemExists = await Menu.findBy({ itemName }).first()
+        if (itemExists){
+            return res.status(400).json({ message: "itemName already exists" })
+        }
+
+        const newItem = await Menu.createMenuItem(req.body)
+        res.status(201).json(newItem) 
     } catch(err){
         next(err)
     }

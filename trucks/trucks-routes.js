@@ -24,15 +24,41 @@ route.get('/:id', async (req, res, next) => {
     }
 });
 
-//delete user
+//delete truck
 route.delete('/:id', async (req, res, next) => {
     try {
-        await Trucks.deleteTruck(req.params.id)
+        const { id } = req.params
+        const truckExists = await Trucks.findBy({ id }).first()
+        if (!truckExists){
+            return res.status(400).json({ message: "truckName doesn't exist" })
+        }
+        await Trucks.deleteTruck(id)
         res.json({ message: "Truck deleted"})
     } catch(err){
         next(err)
     }
 });
+
+//create truck
+route.post("/", async (req, res, next) => {
+    try {
+        const { truckName, cuisineType, location } = req.body
+        if (!truckName || !cuisineType || !location){
+            return res.status(400).json({ message: "Please provide truckName, cuisineType, and location"})
+        }
+
+        const truckExists = await Trucks.findBy({truckName}).first()
+        if (truckExists){
+            return res.status(400).json({ message: "truckName already exists" })
+        }
+
+        const newTruck = await Trucks.createTruck(req.body)
+        res.status(201).json(newTruck) 
+    } catch(err){
+        next(err)
+    }
+});
+
 
 module.exports = route
 

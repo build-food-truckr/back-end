@@ -3,14 +3,16 @@ const db = require('../data/config')
 module.exports = {
     findTrucks, 
     findTruckById,
-    deleteTruck
+    deleteTruck, 
+    createTruck,
+    findBy
 }
 
 function findTrucks(){
     return db("trucks as t")
-        .join("trucks_menus as tm", "tm.truck_id", "t.id")
-        .join("menu as m", "m.id", "tm.menu_id")
-        .select("t.*", "m.*")
+        // .join("trucks_menus as tm", "tm.truck_id", "t.id")
+        // .join("menu as m", "m.id", "tm.menu_id")
+        // .select("t.*", "m.*")
 }
 
 function findTruckById(id){
@@ -19,8 +21,18 @@ function findTruckById(id){
         .join("trucks_menus as tm", "tm.truck_id", "t.id")
         .join("menu as m", "m.id", "tm.menu_id")
         .select("t.*", "m.*")
+        .first()
 }
 
 function deleteTruck(id){
     return db("trucks").where({ id }).del()
+}
+
+async function createTruck(payload) {
+    const [id] = await db("trucks").insert(payload)
+    return findBy({id}).first()
+}
+
+function findBy(filter) {
+    return db("trucks").where(filter)
 }
