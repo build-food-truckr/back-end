@@ -65,14 +65,5 @@ route.post('/login', doesUserAlreadyExist(), async (req, res, next) => {
     }
 });
 
-//delete user
-route.delete('/:id', async (req, res, next) => {
-    try {
-        await Users.deleteUser(req.params.id)
-        res.json({ message: "User deleted"})
-    } catch(err){
-        next(err)
-    }
-});
 
 module.exports = route

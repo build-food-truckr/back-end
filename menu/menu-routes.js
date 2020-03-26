@@ -61,5 +61,25 @@ route.post("/", async (req, res, next) => {
     }
 });
 
+
+//edit menu item
+route.put("/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params
+
+        const payload = {
+            itemName: req.body.itemName,
+            description: req.body.description,
+            imageOfItem: req.body.imageOfItem,
+            itemPrice: req.body.itemPrice
+        }
+
+        const updatedItem = await Menu.editMenuItem(id, payload)
+        res.json(updatedItem)
+    } catch(err) {
+        next(err)
+    }
+})
+
 module.exports = route
 
