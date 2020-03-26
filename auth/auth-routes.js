@@ -1,6 +1,8 @@
 const route = require("express").Router();
 const Users = require('../users/users-model');
-const doesUserAlreadyExist = require("./")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const doesUserAlreadyExist = require("./doesUserAlreadyExist");
 
 
 function generateToken(user){
@@ -24,6 +26,12 @@ route.post('/register', async (req, res, next) => {
             return res.status(400).json({ message: "Please provide full credentials"})
         }
 
+        //make sure the role is diner or operator
+        const roleCheck = role.toLowerCase()
+        if(!roleCheck === "diner" || !roleCheck === "operator"){
+            return res.status(400).json({ message: "Role must either be 'operator' or 'diner" })
+        }
+
         //check if the username is already taken
         const user = await Users.findBy({ username }).first()
         if(user) {
@@ -41,12 +49,14 @@ route.post('/register', async (req, res, next) => {
 route.post('/login', doesUserAlreadyExist(), async (req, res, next) => {
     try {
         const { username, password } = req.body
-        const isPasswordValid = bcrypt.compare(password, req.user.password)
 
+        // validate the password
+        const isPasswordValid = bcrypt.compare(password, req.dbUser.password)
         if(!isPasswordValid){
             res.status(400).json({ message: "Please enter a valid password" })
         } else {
-            const token = generateToken(req.user)
+            //generate token and store it in cookie
+            const token = generateToken(req.dbUser)
             res.cookie("authToken", token)
             res.json({ message: `Welcome ${username}` })
         }

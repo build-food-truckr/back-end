@@ -13,7 +13,7 @@ module.exports = {
 }
 
 function findAll(){
-    return db("users").select("id", "username")
+    return db("users").select("id", "username", "role")
 }
 
 function findDiners(){
@@ -21,7 +21,7 @@ function findDiners(){
         .where("u.role", "diner")
         .join("users_trucks as ut", "ut.user_id", "u.id")
         .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.id", "u.username", "u.email", "t.truckName as favorite_trucks")
+        .select("u.id", "u.username", "u.role", "u.email", "t.truckName as favorite_trucks")
 }
 
 function findDinerById(id){
@@ -29,7 +29,7 @@ function findDinerById(id){
         .where("u.id", id)
         .join("users_trucks as ut", "ut.user_id", "u.id")
         .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.username", "u.email", "t.truckName as favorite_trucks")
+        .select("u.username", "u.email", "u.role", "t.truckName as favorite_trucks")
 }
 
 function findOperators(){
@@ -37,7 +37,7 @@ function findOperators(){
         .where("u.role", "operator")
         .join("users_trucks as ut", "ut.user_id", "u.id")
         .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.username", "u.email", "t.truckName as owned_trucks")
+        .select("u.username", "u.email", "u.role", "t.truckName as owned_trucks")
 }
 
 function findOperatorById(id){
@@ -45,7 +45,7 @@ function findOperatorById(id){
         .where("u.id", id)
         .join("users_trucks as ut", "ut.user_id", "u.id")
         .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.username", "u.email", "t.truckName as owned_trucks")
+        .select("u.username", "u.email", "u.role", "t.truckName as owned_trucks")
 }
 
 function findBy(filter) {
@@ -57,7 +57,7 @@ function findBy(filter) {
 function findById(id){
     return db("users")
         .where({ id })
-        .select("id", "username")
+        .select("id", "username", "u.role",)
         .first()
 }
 
