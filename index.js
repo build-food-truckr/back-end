@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser")
 const authRoutes = require("./auth/auth-routes")
 const userRoutes = require("./users/users-routes")
 const truckRoutes = require("./trucks/trucks-routes")
+const menuRoutes = require("./menu/menu-routes")
 const restrictPath = require("./global-middleware/restrictPath")
 
 const server = express()
@@ -16,6 +17,7 @@ server.use(cookieParser())
 server.use('/api/auth', authRoutes)
 server.use('/api/users', restrictPath(), userRoutes)
 server.use('/api/trucks', restrictPath(), truckRoutes)
+server.use('/api/menu', restrictPath(), menuRoutes)
 
 
 server.use('/', (err, req, res, next) => {
