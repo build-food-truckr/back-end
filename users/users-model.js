@@ -3,6 +3,10 @@ const bcrypt = require("bcryptjs")
 
 module.exports = {
     findAll,
+    findDiners,
+    findDinerById,
+    findOperators,
+    findOperatorById,
     findBy,
     findById,
     createUser
@@ -10,6 +14,38 @@ module.exports = {
 
 function findAll(){
     return db("users").select("id", "username")
+}
+
+function findDiners(){
+    return db("users as u")
+        .where("u.role", "diner")
+        .join("users_trucks as ut", "ut.user_id", "u.id")
+        .join("trucks as t", "ut.truck_id", "t.id")
+        .select("u.id", "u.username", "u.email", "t.truckName as favorite_trucks")
+}
+
+function findDinerById(id){
+    return db("users as u")
+        .where("u.id", id)
+        .join("users_trucks as ut", "ut.user_id", "u.id")
+        .join("trucks as t", "ut.truck_id", "t.id")
+        .select("u.username", "u.email", "t.truckName as favorite_trucks")
+}
+
+function findOperators(){
+    return db("users as u")
+        .where("u.role", "operator")
+        .join("users_trucks as ut", "ut.user_id", "u.id")
+        .join("trucks as t", "ut.truck_id", "t.id")
+        .select("u.username", "u.email", "t.truckName as owned_trucks")
+}
+
+function findOperatorById(id){
+    return db("users as u")
+        .where("u.id", id)
+        .join("users_trucks as ut", "ut.user_id", "u.id")
+        .join("trucks as t", "ut.truck_id", "t.id")
+        .select("u.username", "u.email", "t.truckName as owned_trucks")
 }
 
 function findBy(filter) {

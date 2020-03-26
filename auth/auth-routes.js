@@ -54,3 +54,5 @@ route.post('/login', doesUserAlreadyExist(), async (req, res, next) => {
         next(err)
     }
 });
+
+module.exports = route
