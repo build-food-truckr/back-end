@@ -9,7 +9,8 @@ module.exports = {
     findOperatorById,
     findBy,
     findById,
-    createUser
+    createUser,
+    deleteUser
 }
 
 function findAll(){
@@ -65,4 +66,8 @@ async function createUser(credentials){
     credentials.password = await bcrypt.hash(credentials.password, 12)
     const [id] = await db("users").insert(credentials)
     return findById(id)
+}
+
+function deleteUser(id){
+    return db("users").where({ id }).del()
 }
