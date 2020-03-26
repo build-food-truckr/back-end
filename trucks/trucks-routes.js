@@ -70,8 +70,8 @@ route.put("/:id", async (req, res, next) => {
             imageOfTruck: req.body.imageOfTruck,
             location: req.body.location
         }
-        
-        const updatedTruck = await Trucks.editTruck(id, req.body)
+
+        const updatedTruck = await Trucks.editTruck(id, payload)
         res.json(updatedTruck)
     } catch(err) {
         next(err)

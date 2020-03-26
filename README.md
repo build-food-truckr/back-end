@@ -1,6 +1,6 @@
-#Food Truck BackEnd Documentation
+# Food Truck BackEnd Documentation
 
-##Base URL
+## Base URL
 ```
 https://authentication-backend-lambda.herokuapp.com/
 ```
@@ -10,7 +10,7 @@ https://authentication-backend-lambda.herokuapp.com/
 The app is using JSON Web Token that is stored as a cookie, which keeps a user logged in for 1 hour. Note: the register endpoint does not create the cookie - the login route does.
 |       | Endpoint | Method |  Expects | Returns |
 | :--- |   :---:  |  :---: |   :---:  | :---: |
-| **Register**  | /api/auth/register  | post | Content  | Content  |
+| **Register**  | /api/auth/register  | post | username, email, password  | Content  |
 | **Login**  | /api/auth/login  | post | Content  | Content  |
 
 
