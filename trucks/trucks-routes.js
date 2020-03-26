@@ -59,6 +59,24 @@ route.post("/", async (req, res, next) => {
     }
 });
 
+//edit truck
+route.put("/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params
+
+        const payload = {
+            truckName: req.body.truckName,
+            cuisineType: req.body.cuisineType,
+            imageOfTruck: req.body.imageOfTruck,
+            location: req.body.location
+        }
+
+        const updatedTruck = await Trucks.editTruck(id, payload)
+        res.json(updatedTruck)
+    } catch(err) {
+        next(err)
+    }
+})
 
 module.exports = route
 

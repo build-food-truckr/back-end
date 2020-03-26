@@ -26,12 +26,15 @@ route.post('/register', async (req, res, next) => {
             return res.status(400).json({ message: "Please provide full credentials"})
         }
 
-        //make sure the role is diner or operator
-        const roleCheck = role.toLowerCase()
-        if(!roleCheck === "diner" || !roleCheck === "operator"){
-            return res.status(400).json({ message: "Role must either be 'operator' or 'diner" })
-        }
+        console.log("Checkpoint 1")
 
+        //make sure the role is diner or operator
+        // const roleCheck = role.toLowerCase()
+        // if(!roleCheck === "diner" || !roleCheck === "operator"){
+        //     return res.status(400).json({ message: "Role must either be 'operator' or 'diner" })
+        // }
+
+        console.log("checkpoint 2")
         //check if the username is already taken
         const user = await Users.findBy({ username }).first()
         if(user) {
@@ -65,14 +68,5 @@ route.post('/login', doesUserAlreadyExist(), async (req, res, next) => {
     }
 });
 
-//delete user
-route.delete('/:id', async (req, res, next) => {
-    try {
-        await Users.deleteUser(req.params.id)
-        res.json({ message: "User deleted"})
-    } catch(err){
-        next(err)
-    }
-});
 
 module.exports = route

@@ -5,7 +5,8 @@ module.exports = {
     findMenuItemById,
     deleteMenuItem, 
     createMenuItem,
-    findBy
+    findBy, 
+    editMenuItem
 }
 
 function findMenuItems(){
@@ -34,4 +35,9 @@ async function createMenuItem(payload){
 
 function findBy(filter) {
     return db("menu").where(filter)
+}
+
+async function editMenuItem(id, payload){
+    await db("menu").where("id", id).update(payload)
+    return findBy({id})
 }

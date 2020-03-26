@@ -5,7 +5,8 @@ module.exports = {
     findTruckById,
     deleteTruck, 
     createTruck,
-    findBy
+    findBy,
+    editTruck
 }
 
 function findTrucks(){
@@ -35,4 +36,9 @@ async function createTruck(payload) {
 
 function findBy(filter) {
     return db("trucks").where(filter)
+}
+
+async function editTruck(id, payload){
+    await db("trucks").where("id", id).update(payload)
+    return findBy({id}).first()
 }
