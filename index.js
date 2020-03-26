@@ -7,15 +7,12 @@ const userRoutes = require("./users/users-routes")
 const truckRoutes = require("./trucks/trucks-routes")
 const restrictPath = require("./global-middleware/restrictPath")
 
-const cors = require("cors");
-
 const server = express()
 const PORT = 5000
 
 server.use(helmet())
 server.use(express.json())
 server.use(cookieParser())
-server.use(cors())
 server.use('/api/auth', authRoutes)
 server.use('/api/users', restrictPath(), userRoutes)
 server.use('/api/trucks', restrictPath(), truckRoutes)

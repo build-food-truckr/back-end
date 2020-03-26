@@ -1,6 +1,6 @@
 const Users = require('../users/users-model')
 
-module.exports = async function doesUserAlreadyExist(){
+module.exports = function doesUserAlreadyExist(){
     return (req, res, next) => {
         try {
             const { username } = req.body
