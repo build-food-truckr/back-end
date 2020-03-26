@@ -1,6 +1,8 @@
 const route = require("express").Router();
 const Users = require('../users/users-model');
-const doesUserAlreadyExist = require("./")
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+//const doesUserAlreadyExist = require("./doesUserAlreadyExist.js")
 
 
 function generateToken(user){
@@ -38,15 +40,16 @@ route.post('/register', async (req, res, next) => {
     }
 });
 
-route.post('/login', doesUserAlreadyExist(), async (req, res, next) => {
+route.post('/login', async (req, res, next) => {
     try {
         const { username, password } = req.body
-        const isPasswordValid = bcrypt.compare(password, req.user.password)
+        console.log(req)
+        const isPasswordValid = bcrypt.compare(password, req.body.password)
 
         if(!isPasswordValid){
             res.status(400).json({ message: "Please enter a valid password" })
         } else {
-            const token = generateToken(req.user)
+            const token = generateToken(req.body.username)
             res.cookie("authToken", token)
             res.json({ message: `Welcome ${username}` })
         }
