@@ -63,4 +63,5 @@ route.get('/operators/:id', async (req, res, next) => {
     }
 });
 
+
 module.exports = route

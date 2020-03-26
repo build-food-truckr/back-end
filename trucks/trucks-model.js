@@ -2,7 +2,8 @@ const db = require('../data/config')
 
 module.exports = {
     findTrucks, 
-    findTruckById
+    findTruckById,
+    deleteTruck
 }
 
 function findTrucks(){
@@ -20,3 +21,6 @@ function findTruckById(id){
         .select("t.*", "m.*")
 }
 
+function deleteTruck(id){
+    return db("trucks").where({ id }).del()
+}

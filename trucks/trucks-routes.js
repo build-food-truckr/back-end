@@ -24,5 +24,15 @@ route.get('/:id', async (req, res, next) => {
     }
 });
 
+//delete user
+route.delete('/:id', async (req, res, next) => {
+    try {
+        await Trucks.deleteTruck(req.params.id)
+        res.json({ message: "Truck deleted"})
+    } catch(err){
+        next(err)
+    }
+});
+
 module.exports = route
 
