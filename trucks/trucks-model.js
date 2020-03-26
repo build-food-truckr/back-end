@@ -6,14 +6,17 @@ module.exports = {
 }
 
 function findTrucks(){
-    return db("trucks")
+    return db("trucks as t")
+        .join("trucks_menus as tm", "tm.truck_id", "t.id")
+        .join("menu as m", "m.id", "tm.menu_id")
+        .select("t.*", "m.*")
 }
 
 function findTruckById(id){
     return db("trucks as t")
         .where("t.id", id)
         .join("trucks_menus as tm", "tm.truck_id", "t.id")
-        .join("menus as m", "m.id", "tm.menu_id")
+        .join("menu as m", "m.id", "tm.menu_id")
         .select("t.*", "m.*")
 }
 

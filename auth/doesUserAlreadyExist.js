@@ -1,7 +1,7 @@
 const Users = require('../users/users-model')
 
 module.exports = function doesUserAlreadyExist(){
-    return (req, res, next) => {
+    return async (req, res, next) => {
         try {
             const { username } = req.body
             const user = await Users.findBy({ username }).first()

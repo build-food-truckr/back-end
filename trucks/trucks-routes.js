@@ -4,7 +4,7 @@ const Trucks = require('./trucks-model')
 //after api/trucks, and all routes go through restrictedPath as specified in index.js
 
 //get all trucks
-route.get('/trucks', async (req, res, next) => {
+route.get('/', async (req, res, next) => {
     try { 
         const trucks = await Trucks.findTrucks()
         res.json(trucks)
@@ -14,7 +14,7 @@ route.get('/trucks', async (req, res, next) => {
 });
 
 //get truck by ID
-route.get('/trucks/:id', async (req, res, next) => {
+route.get('/:id', async (req, res, next) => {
     try {
         const { id } = req.params 
         const truck = await Trucks.findTruckById(id).first()

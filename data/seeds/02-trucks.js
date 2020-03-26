@@ -7,13 +7,13 @@ exports.seed = function(knex) {
       return knex('trucks').insert([
         {
           truckName: 'The Bacon Boss',
-          imageOfTruck: 'rowValue1',
+          imageOfTruck: '',
           cuisineType: 'American',
           location: '1435 River Park Dr #1445, Sacramento, CA 95815'
         },
         {
           truckName: 'North Border Taco',
-          imageOfTruck: 'rowValue1',
+          imageOfTruck: '',
           cuisineType: 'Mexican',
           location: '3721 47th Ave, Sacramento, CA 95824'
         },
