@@ -24,6 +24,7 @@ The app is using JSON Web Token that is stored as a cookie, which keeps a user l
 | **Get All Operators**  | /api/users/operators  | get  | Content  | Content  |
 | **Get Operator by Id**  | /api/users/operators/:id | get  | Content  | Content  |
 | **Delete User**  | /api/users/:id  | del | Content  | Content  |
+| **Edit User**  | /api/users/:id | put | Content  | Content  |
 
 
 ## Truck Routes
@@ -35,14 +36,3 @@ The app is using JSON Web Token that is stored as a cookie, which keeps a user l
 | **Delete Truck**  | /api/trucks/:id  | del | Content  | Content  |
 | **Create Truck**  | /api/trucks/ | post | Content  | Content  |
 | **Edit Truck**  | /api/trucks/:id | put | Content  | Content  |
-
-
-## Menu Routes
-
-|       | Endpoint | Method |  Expects | Returns |
-| :--- |   :---:  |  :---: |   :---:  | :---: |
-| **Get All Menu Items**  |  /api/menu  | get  | Content  | Content  |
-| **Get Menu Item by Id**  | /api/menu/:id  | get  | Content  | Content  |
-| **Delete Menu Item**  | /api/menu/:id  | del | Content  | Content  |
-| **Create Menu Item**  | /api/menu/ | post | Content  | Content  |
-| **Edit Menu Item**  | /api/menu/:id | put | Content  | Content  |

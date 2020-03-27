@@ -11,16 +11,14 @@ module.exports = {
 
 function findMenuItems(){
     return db("menu as m")
-        // .join("trucks_menus as tm", "tm.truck_id", "m.id")
-        // .join("trucks as t", "t.id", "tm.menu_id")
-        // .select("m.*", "t.*")
+        .join("trucks as t", "t.menu_id", "m.id")
+        .select("m.*", "t.*")
 }
 
 function findMenuItemById(id){
     return db("menu as m")
         .where("m.id", id)
-        .join("trucks_menus as tm", "tm.truck_id", "m.id")
-        .join("trucks as t", "t.id", "tm.menu_id")
+        .join("trucks as t", "t.menu_id", "m.id")
         .select("m.*", "t.*")
 }
 

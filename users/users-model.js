@@ -10,7 +10,8 @@ module.exports = {
     findBy,
     findById,
     createUser,
-    deleteUser
+    deleteUser,
+    editUser
 }
 
 function findAll(){
@@ -19,46 +20,36 @@ function findAll(){
 
 function findDiners(){
     return db("users as u")
-        .where("u.role", "diner")
-        .join("users_trucks as ut", "ut.user_id", "u.id")
-        .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.id", "u.username", "u.role", "u.email", "t.truckName as favorite_trucks")
+        .where("role", "diner")
+        .select("id", "username", "role", "favoriteTruck")
 }
 
 function findDinerById(id){
-    return db("users as u")
-        .where("u.id", id)
-        .join("users_trucks as ut", "ut.user_id", "u.id")
-        .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.username", "u.email", "u.role", "t.truckName as favorite_trucks")
+    return db("users")
+        .where("id", id)
+        .select("username", "role", "favoriteTruck")
 }
 
 function findOperators(){
-    return db("users as u")
-        .where("u.role", "operator")
-        .join("users_trucks as ut", "ut.user_id", "u.id")
-        .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.username", "u.email", "u.role", "t.truckName as owned_trucks")
+    return db("users")
+        .where("role", "operator")
+        .select("username", "email", "role", "ownedTruck")
 }
 
 function findOperatorById(id){
-    return db("users as u")
-        .where("u.id", id)
-        .join("users_trucks as ut", "ut.user_id", "u.id")
-        .join("trucks as t", "ut.truck_id", "t.id")
-        .select("u.username", "u.email", "u.role", "t.truckName as owned_trucks")
+    return db("users")
+        .where("id", id)
+        .select("username", "email", "role", "ownedTruck")
 }
 
 function findBy(filter) {
-	return db("users")
-		.select("id", "username", "password")
-		.where(filter)
+	return db("users").where(filter)
 }
 
 function findById(id){
     return db("users")
         .where({ id })
-        .select("id", "username", "role",)
+        .select("id", "username", "role")
         .first()
 }
 
@@ -70,4 +61,9 @@ async function createUser(credentials){
 
 function deleteUser(id){
     return db("users").where({ id }).del()
+}
+
+async function editUser(id, payload){
+    await db("users").where({ id }).update(payload)
+    return findBy({id}).first()
 }

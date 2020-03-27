@@ -9,13 +9,17 @@ exports.seed = function(knex) {
           username: 'Joey',
           password: 'abc123',
           email: 'joey@gmail.com',
-          role: 'diner'
+          role: 'diner',
+          favoriteTruck: 1,
+          ownedTruck: 1
         },
         {
           username: 'David',
           password: 'abc123',
           email: 'david@gmail.com',
-          role: 'operator'
+          role: 'operator',
+          favoriteTruck: 1,
+          ownedTruck: 1
         },
       ]);
     });
