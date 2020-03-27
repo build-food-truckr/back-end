@@ -38,6 +38,7 @@ Note:
 Notes: 
 - truckName must be unique and description, and images are optional.
 - Seed data does not include images.
+
 |       | Endpoint | Method |  Expects | Returns |
 | :--- |   :---:  |  :---: |   :---:  | :---: |
 | **Get All Trucks**  | /api/trucks  | get  | NA  | array of truck objects, with truckName, imageOfTruck, cuisineType, location, itemName, description, imageOfItem, itemPrice (string)  |
