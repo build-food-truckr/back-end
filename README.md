@@ -11,11 +11,11 @@ Notes:
 - The app is using JSON Web Token that is stored as a cookie, which keeps a user logged in for 1 hour. Note: the register endpoint does not create the cookie - the login route does.
 - The "role" must be either 'diner' or 'operator'. Lowercase letters.
 - username must be unique
-- favoriteTruck and ownedTruck are integers that correspond to truck IDs. They are meant to be updated after registration. 'favoriteTruck' is for a 'diner', 'ownedTruck' is for an 'operator'.
+- favoriteTruck and ownedTruck are integers that correspond to truck IDs. They are meant to be updated after registration. 'favoriteTruck' is for a 'diner', 'ownedTruck' is for an 'operator'. They default to null.
 
 |       | Endpoint | Method |  Expects | Returns |
 | :--- |   :---:  |  :---: |   :---:  | :---: |
-| **Register**  | /api/auth/register  | post | username, email, password, role (All required, all strings); favoriteTruck, ownedTruck (Both , initially null) | welcome message  |
+| **Register**  | /api/auth/register  | post | username, email, password, role (All required, all strings); favoriteTruck, ownedTruck | welcome message  |
 | **Login**  | /api/auth/login  | post | username and password  | an authToken and welcome message  |
 
 
