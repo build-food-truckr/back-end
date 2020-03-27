@@ -65,5 +65,5 @@ function deleteUser(id){
 
 async function editUser(id, payload){
     await db("users").where({ id }).update(payload)
-    return findBy({id}).first()
+    return findById(id)
 }

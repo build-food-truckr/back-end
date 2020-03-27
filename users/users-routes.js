@@ -76,11 +76,7 @@ route.delete('/:id', async (req, res, next) => {
 //edit user
 route.put("/:id", async (req, res, next) =>{
     try{
-        const { id } = req.params
-        // const payload = {
-
-        // }
-        const editedUser = await Users.editUser(id, req.body)
+        const editedUser = await Users.editUser(req.params.id, req.body)
         res.json(editedUser)
     } catch(err){
         next(err)
