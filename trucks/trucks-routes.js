@@ -42,9 +42,9 @@ route.delete('/:id', async (req, res, next) => {
 //create truck
 route.post("/", async (req, res, next) => {
     try {
-        const { truckName, cuisineType, location } = req.body
-        if (!truckName || !cuisineType || !location){
-            return res.status(400).json({ message: "Please provide truckName, cuisineType, and location"})
+        const { truckName, cuisineType, location, itemName, itemPrice } = req.body
+        if (!truckName || !cuisineType || !location ||!itemName || !itemPrice){
+            return res.status(400).json({ message: "Please provide truckName, cuisineType, itemName, itemPrice, and location"})
         }
 
         const truckExists = await Trucks.findBy({truckName}).first()
@@ -64,14 +64,7 @@ route.put("/:id", async (req, res, next) => {
     try {
         const { id } = req.params
 
-        const payload = {
-            truckName: req.body.truckName,
-            cuisineType: req.body.cuisineType,
-            imageOfTruck: req.body.imageOfTruck,
-            location: req.body.location
-        }
-
-        const updatedTruck = await Trucks.editTruck(id, payload)
+        const updatedTruck = await Trucks.editTruck(id, req.body)
         res.json(updatedTruck)
     } catch(err) {
         next(err)

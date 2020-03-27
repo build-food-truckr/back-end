@@ -58,7 +58,7 @@ route.post('/login', doesUserAlreadyExist(), async (req, res, next) => {
             //generate token and store it in cookie
             const token = generateToken(req.dbUser)
             res.cookie("authToken", token)
-            res.json({ message: `Welcome ${username}` })
+            res.json({ message: `Welcome ${username}`, authToken: token })
         }
     } catch(err){
         next(err)
